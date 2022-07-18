@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COFFEE BEAN KOREA</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            // search side
+            togglea = 0; //닫힌상태
+            $('#search').click(function(){
+                if(togglea==0){
+                    togglea=1;
+                    $('#search_side').slideDown()
+                    $(this).attr({'src':'icons/close_bt.png'})
+                 }
+                else if(togglea==1){
+                    togglea=0;
+                    $('#search_side').slideUp()
+                    $(this).attr({'src':'icons/ico_search.png'})
+                 }
+            },2000)
+            // header side
+            toggleb = 0;
+            $('#header1_box>ul>li:last-child').click(function(){
+                if(toggleb==0){
+                    toggleb=1;
+                    $('#header_side').slideDown()
+                    $('#header1_box>ul>li:last-child>img').attr({'src':'icons/btn_popup_close2.png'})
+                }
+                else if(toggleb==1){
+                    toggleb=0;
+                    $('#header_side').hide()
+                    $('#header1_box>ul>li:last-child>img').attr({'src':'icons/ico_user_info_line.png'})
+                }
+            })
+            // md_pick slide bt 
+            $('#md_pick_bt>li:nth-child(2)>img:nth-child(1)').click(function(){
+                $(this).attr({'src':'icons/paging_on.png'})
+                $(this).siblings().attr({'src':'icons/paging.png'})
+                $('#md_pick_box>ul').animate({left:'0'},1500)
+            })
+            $('#md_pick_bt>li:nth-child(2)>img:nth-child(2)').click(function(){
+                $(this).attr({'src':'icons/paging_on.png'})
+                $(this).siblings().attr({'src':'icons/paging.png'})
+                $('#md_pick_box>ul').animate({left:'-1200px'},1500)
+            })
+            // md_pick slide 반복
+            auto_key = 0; pick_slide_num = 0;
+            setInterval(function(){
+                if( auto_key==0 ){
+                    if( pick_slide_num <= -2400 ){
+                        $('#md_pick_box>ul').animate({left:'0'},800)
+                        pick_slide_num = 0
+                    }
+                    pick_slide_num = pick_slide_num - 1200
+                    $('#md_pick_box>ul').animate({left:'-1200px'},800)
+                }
+            },1000)
+
+
+
+            toggle = 0 //정지상태 정지버튼 
+            // md_pick 재생버튼 정지버튼
+            $('#md_pick_bt>li:nth-child(1)').click(function(){
+                if(toggle==0){
+                    //정지상태->재생상태
+                    auto_key = 1;
+                    toggle=1;
+                    $('#md_pick_bt>li:nth-child(1)>img').attr({'src':'icons/play_btn.png'})
+                }
+                else if(toggle==1){
+                    //재생상태->정지상태
+                    auto_key = 0;
+                    toggle=0;
+                    $('#md_pick_bt>li:nth-child(1)>img').attr({'src':'icons/btn_pause.png'})
+                }
+                
+            })
+
+
+
+            // scroll Top
+            $('#btn_top').click(function(){
+                $('html,body').animate({scrollTop:0},300)
+            })
+        })
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Arvo:wght@400;700&family=Libre+Baskerville:wght@400;700&family=Montserrat+Alternates:ital,wght@0,400;1,300;1,600&family=Secular+One&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; list-style:none; font-family: 'Anton', sans-serif; font-family: 'Arvo', serif; font-family: 'Libre Baskerville', serif; font-family: 'Montserrat Alternates', sans-serif; font-family: 'Secular One', sans-serif; }
+        /* pos:f 를 적용하면 부모공간에  pos:r하지않는다. 단,좌표와 z-index, width를적용한다 */
+        header { border-bottom: 1px solid #ccc; position: fixed; width: 100%; top: 0; left: 0; z-index: 9999;}
+        #header1 { width: 100%; height: 40px; background-color: #eee; }
+        #header1_box { width: 1210px; height: 40px;  margin: auto;  }
+        #header1_box ul { float: right; line-height: 40px; }
+        #header1_box ul li { float:left; margin-left: 15px; font-size: 14px; }
+        #header1_box ul li:last-child { width: 60px; height: 40px; background-color: #2f1c11 ; text-align: center; }
+        #header1_box ul li:last-child>img { margin-top: 8px; }
+        #header1_box ul li:first-child { border-right: 1px solid #aaa; padding-right: 15px; }
+
+        #header2 { width: 100%; height: 100px; background-color: #fff; position: relative;  }
+        #header2_box { width: 1210px; height: 100px;  margin: auto;  }
+        #header2_box>#logo { width: 100px; height: 100px; float: left; line-height: 100px; } 
+        #header2_box>#logo>img { vertical-align: middle; margin-top: -8px; }
+        #header2_box>#logo>img:hover { cursor: pointer; }
+        /* 기본배열에서 옆으로 배열하는 코드는 둘중에 하나,
+        하나- 왼쪽이나 오른쪽으로 치우치게 배열할 경우나 간격을 1px까지 정확하게 밀림없이 배열해야할 경우 float
+        둘- d:ib, 요소에 d:ib을 적용하고 부모에 ta:c를 적용해서 옆으로배열된 요소들이 가운데 정렬된 상태를 원한다면 d:ib */
+        #header2_box>#menu { width: 950px; height: 100px; background-color: #fff; margin-left: 130px; float: left; border: 1px solid #000; }
+        /* 폰트 두껍게 font-weight: 900;  */
+        #header2_box>#menu>li { display: inline-block; background-color: #fff; margin-right: 75px; line-height: 100px; font-size: 14px; font-weight: 900; position: relative;}
+        #menu>li:first-child { margin: 0; }
+        #menu>li:last-child { margin: 0; }
+        #header2_box>#menu>li:hover { color:#d4641a; cursor: pointer; }
+        #search { width: 20px; height: 20px; float: right; margin-top: 37px; margin-right: 3px; }
+        #main_slide { width: 100%; height: 700px; background: url(images/slide_main.jpg) center no-repeat ; margin-top: 140px; }
+        #vanner { width: 100%; height: 400px; background: url(images/slide2.jpg) center no-repeat ; }
+        #header1_box ul li , #header2_box>img:hover,#main_slide, #vanner , #md_pick ul li img , #md_pick ul li h3 ,  #what_new ul li img , #btn_top , #sns , #sns button { cursor: pointer; }
+ /*      sub    */
+        #menu>li>div { background-color: rgb(242, 242, 242); position: absolute; }
+        #menu>li>div>ul { margin: auto; margin-top: 30px; }
+        #menu>li>div>ul>li { line-height: 20px; color: rgb(87, 48, 20); font-weight: 100; font-size: 14px; }
+
+        #sub5 {width: 1070px; height: 197px; right: 0; top: 99px;   margin-right: -300%; }
+        #sub5>ul { width: 200px; float: left; }
+        #sub5-1 {  }
+        #sub5-2 {  }
+        #sub5-3 {  }
+        #sub5-4 {  }
+        #sub5-5 {  }
+        
+
+        #sub6 { height: 197px; width: 200px; right: -120px; top: 102px; display: none; }
+        #sub6>ul { width: 150px; border: 1px solid #000; }
+        
+
+
+
+        /* header Toggle */
+        #header_side { width: 100%; height: 120px; background-color: #2f1c11; display: none;}
+        #header_side>h3 {  font-size: 18px; color: #fff; font-weight: 100; line-height: 120px; padding-left: 330px; }
+        #header_side>h3>span { color: #ffaf24; }
+
+        #h_side_bt { width: 372px; height: 45px; float: right; margin-right: 320px; margin-top: -75px; font-size: 13px; }
+        #h_side_bt>li { width: 170px; height: 35px; display: inline-block; border: 1px solid #fff; text-align: center; line-height: 40px; cursor: pointer; }
+        #h_side_bt>li:nth-child(1) { background-color: #fff; color: #2f1c11; margin-right: 13px; }
+        #h_side_bt>li:nth-child(2) { background-color: transparent; color: #fff; }
+
+
+
+        /* search Toggle */
+        #search_side { width: 1260px; height: 79px; background-color: #eee; position: absolute; left: 0; right: 0; top: 100px;   margin: auto; display: none; }
+        #search_side>img { float: right; margin-top: 30px; margin-right: 30px; cursor: pointer; }
+        #search_side>input { width: 1155px; height: 28px; border: 2px solid #000; background-color: #eee; border-radius: 5px; margin-top: 23px; margin-left: 29px; }
+
+        /*  MD PICK  */
+        #md_pick { width: 100%; height: 580px; margin:auto; text-align: center;  }
+        #md_pick_box { width: 1200px; height: 580px; margin: auto; position: relative; overflow: hidden; }
+        #md_pick_box>h2 {  height: 120px; line-height: 135px; font-weight: 100; color:#d4641a;}
+        #md_pick_box>ul { width: 2400px; margin: auto; position: absolute; }
+        #md_pick_box>ul>li { width: 300px; height: 410px; box-sizing: border-box; float: left; }
+        #md_pick_box>ul>li:last-child { margin-right: none; }
+
+        #md_pick_box>ul>li>img { width: 100%; }
+        #md_pick_box>ul>li>h3 { font-size: 16.5px; margin: 14px; font-weight: 900;  }
+        #md_pick_box>ul>li>h4 { font-size: 14px; margin-top: 10px; font-weight: 400; color: rgb(77, 75, 75);}
+        #md_pick_box>ul>li>h5 { font-size: 16px; margin-top: 8px; font-weight: 400; color: #d4641a;   }
+        #md_pick_bt { width: 160px; height: 40px; margin: 8px auto;  }
+        /* border-right: 1px (가로줄) 을 넣었기때문에 오른쪽영역이 내려갔는데 왼쪽영역 가로사이즈60px을 1px줄이던지 아니면 
+        사이즈를 안쪽사이즈로하는 bx:bb 를 입력. */
+        #md_pick_bt li:nth-child(1) { width: 60px; height: 15px; text-align: center; margin-top: 6px; float: left; border-right: 1px solid rgb(216, 213, 213); box-sizing: border-box; }
+        #md_pick_bt li:nth-child(2) { width: 100px; height: 40px; text-align: center; line-height: 40px; float: right;  }
+        #md_pick_bt li:nth-child(2) img { margin:0 5px; }
+        #md_pick_bt>li>img { cursor: pointer; }
+
+        #what_new { width: 1236px; height: 780px; margin:0 auto; color: #d4641a; }
+        #what_new h2 { height: 100px; line-height: 100px;  text-align: center; }
+        #what_new ul li { width: 380px; height: 580px; margin: 16px; float: left;  }
+        #what_new ul li img { width: 100%;  }
+        #what_new ul li h3 { color: #d4641a; font-size: 20px; text-align: center; margin-top: 15px; font-weight: 300; }
+
+        #md_pick_bt2 { width: 170px; height: 40px;  margin: 0 auto; margin: 20px auto;   }
+        #md_pick_bt2 li:nth-child(1) { width: 60px; height: 40px; text-align: center; line-height: 40px; float: left; border-right: 1px solid #aaa; box-sizing: border-box; }
+        #md_pick_bt2 li:nth-child(2) { width: 110px; height: 40px; text-align: center; line-height: 40px; float: right;  }
+        #md_pick_bt2 li:nth-child(2) img { margin:0 5px; }
+
+        #sns { width: 100%; height: 620px; background-color: #7c51a1; margin-top: 30px; text-align: center;  }
+        #sns h3 { text-align: center; color: #fff; line-height: 80px; padding-top: 30px; font-size: 23px; font-weight: 500; }
+        #sns ul { width: 1200px; height:400px;  margin:auto; }
+        #sns ul li { width: 200px; height: 200px; float: left; overflow: hidden; }
+        /* 부모의 공간 크기를 정해도 자식은 따라가지 않는다. 예를들어 div크기를 변경해도 그안에있는 자식img의 크기는 변함없다. */
+        #sns ul li>img { width: 100%; transition:transform 0.5s;  }
+        #sns ul li>img:hover { transform: scale(1.2); opacity: 0.7; }
+
+        /* button은 기본테두리가생겨서 없애려면 bd:n  border: none; 을 해줘야함 
+        button은 인라인요소 (인라인요소 가운데정렬은 부모한테 ta:c = #sns text-align: center;)*/
+        #sns button { width: 400px; height: 40px; background-color: #f38200; color: #fff; margin-top: 30px; font-size: 15px; font-weight: 200; border: none;  }
+
+        /* 스크롤 Top  */
+        #btn_top { position: fixed; right: 50px; bottom: 100px; }
+
+        /*   */
+        #m_f_bg { background-color: #e2e2e2; }
+        #menu2 { width: 1200px; height: 300px; margin: auto; border-bottom: 1px solid #000;  }
+        #menu2>ul { width: 200px; height: 240px;  float: left; box-sizing: border-box; margin-top: 55px; }
+        #menu2>ul:nth-child(2) { width: 250px; }
+        #menu2>ul:nth-child(3) { width: 160px; }
+        #menu2>ul:nth-child(4) { width: 160px; }
+        #menu2>ul:nth-child(5) { width: 250px; }
+        #menu2>ul:nth-child(6) { width: 150px; }
+        #menu2 ul>h4 { color: #d0661a; padding-bottom: 10px; }
+        #menu2 ul>li { line-height: 25px; font-size: 12px; color: #4b2616; font-weight: 100; cursor: pointer; }
+        #menu2>ul:nth-child(5) li:nth-child(5) { font-weight: 900; }
+
+        /*  footer */
+        #footer_box { width: 1200px; height: 162px; margin: auto; }
+        #left_box { width: 667px; height: 153px; float: left; }
+        #f_left_1 { width: 676px; height: 65px; }
+        #f_left_1>li { height: 12px; line-height: 15px; float: left; border-right: 2px solid #777; font-size: 12px; margin-top: 35px; color: #4b2616; padding-right: 8px; margin-right: 8px; cursor: pointer; }
+        #f_left_1>li:nth-child(2) { color: #cf661a; }
+        #f_left_1>li:last-child { margin-right: 0; padding-right: 0; border-right: none; }
+
+        #f_left_2 { width: 656px; height: 77px; margin-top: 9px; }
+        #f_left_2>li { float: left; height: 13px; line-height: 15px; font-size: 12.5px; color: #4b2616; border-right: 2px solid #777; padding-right: 6px; margin-right: 6px; margin-top: 7px; }
+        #f_left_2>li:nth-child(3) { border-right: none; }
+        #f_left_2>li:nth-child(6) { border-right: none; }
+        #f_left_2>li:nth-child(7) { border-right: none; }
+
+        #right_box { width: 375px; height: 154px; float: right; }
+        #f_right_icon { float: right; margin-top: 30px;  }
+        #f_right_icon>li { width: 40px; height: 40px; margin-left:9px; display: inline-block; cursor: pointer; }
+        #f_right_icon>li:nth-child(1) { background: url(icons/ico_facebook.png); }
+        #f_right_icon>li:nth-child(2) { background: url(icons/ico_instagram.png); }
+        #f_right_icon>li:nth-child(3) { background: url(icons/ico_blog.png); }
+        #f_right_icon>li:nth-child(4) { background: url(icons/ico_twitter.png); }
+    </style>
+</head>
+<body>
+    
+    <header>
+        <div id="header_side">
+            <h3><span>로그인</span>을 하시면 커피빈 멤버스 클럽의 <span>다양한혜택</span>을 받으실 수 있습니다.</h3>
+            <ul id="h_side_bt">
+                <li>로그인</li>
+                <li>회원가입</li>
+            </ul>
+        </div>
+        <div id="header1">
+            <div id="header1_box">
+                <ul>
+                    <li>로그인</li>
+                    <li>매장찾기</li>
+                    <li>채용정보</li>
+                    <li>단체 및 기업구매</li>
+                    <li>고객서비스</li>
+                    <li><img src="icons/ico_user_info_line.png" alt=""></li>
+                </ul>
+            </div>
+        </div>
+        <div id="header2">
+            <div id="header2_box">
+                <h1 id="logo"><img src="logo_new.jpg" alt=""></h1>
+                <ul id="menu">
+                    <li>BUY ONLINE</li>
+                    <li>MEMBER`S CLUB</li>
+                    <li>MENU</li>
+                    <li>STORE & 서비스</li>
+                    <li>THE COFFEE BEAN
+                        <div id="sub5">
+                            <ul id="sub5-1">
+                                <li><h4>커피빈 코리아</h4></li>
+                                <li>- Simply the Best</li>
+                                <li>- 커피빈 커피와 티</li>
+                            </ul>
+                            <ul id="sub5-2">
+                                <li><h4>커피빈 소식</h4></li>
+                                <li>- 새소식</li>
+                                <li>- 프로모션</li>
+                                <li>- 공지사항</li>
+                                <li>- 소셜미디어</li>
+                            </ul>
+                            <ul id="sub5-3">
+                                <li><h4>사회공언</h4></li>
+                                <li>- 국제 사회공헌</li>
+                                <li>- 필리핀 청소년 교육혜택 지원하기</li>
+                                <li>- 성경원, 나눔의 샘 후원 결연</li>
+                            </ul>
+                            <ul id="sub5-4">
+                                <li><h4>채용안내</h4></li>
+                                <li>- 채용안내 바로가기</li>
+                                <li>- 채용카테고리</li>
+                            </ul>
+                            <ul id="sub5-5">
+                                <li><h4>신규 입점 제의</h4></li>
+                                <li><h4>결산공고</h4></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>CBTL
+                        <div id="sub6">
+                            <ul>
+                                <li>CBTL 가이드</li>
+                                <li>CBTL 서비스</li>
+                                <li>AS 안내</li>
+                                <li>AS 신청</li>
+                                <li>CBTL FAQ</li>
+                                <li>제품설명서</li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+                <img src="icons/ico_search.png" alt="" id="search">
+
+            </div>
+            <div id="search_side">
+                <input type="text">
+                <img src="icons/ico_search.png" alt="">
+            </div>
+        </div>
+    </header>
+    <!-- main슬라이드 영역 시작 -->
+    <div id="main_slide"></div>
+    <div id="vanner"></div>
+    <!-- 상품영역 시작 ( MD PICK ) -->
+    <div id="md_pick">
+        <div id="md_pick_box">
+            <h2> MD'S PICK </h2>
+            <ul>
+                <li>
+                    <img src="images/md_pick1.jpg" alt="">
+                    <h3>커피빈 x 나인웨어 피크닉세트(2인)</h3>
+                    <h4>(인당 2개 구매제한)</h4>
+                    <h5>35,000원</h5>
+                </li>
+                <li>
+                    <img src="images/md_pick2.jpg" alt="">
+                    <h3>웨이브글라스머그(오로라) 450ml</h3>
+                    <h4></h4>
+                    <h5>15,000원</h5>
+                </li>
+                <li>
+                    <img src="images/md_pick3.jpg" alt="">
+                    <h3>그립스텐텀블러(소프트퍼플) 540ML</h3>
+                    <h5>23,000원</h5>
+                </li>
+                <li>
+                    <img src="images/md_pick4.jpg" alt="">
+                    <h3>앵글스텐텀블러 500ml</h3>
+                    <h5>16,000원</h5>
+                </li>
+                <li>
+                    <img src="images/md_pick5.jpg" alt="">
+                    <h3>그립 더블월 빅 글라스(오로라)550ml</h3>
+                    <h4></h4>
+                    <h5>14,000원</h5>
+                </li>
+                <li>
+                    <img src="images/md_pick6.jpg" alt="">
+                    <h3>워터드롭 더블 월 글라스(오로라) 470ml</h3>
+                    <h4></h4>
+                    <h5>11,000원</h5>
+                </li>
+                <li>
+                    <img src="images/md_pick7.jpg" alt="">
+                    <h3>(펫전용)펫리드줄(소프트퍼플)</h3>
+                    <h5>10,000원</h5>
+                </li>
+                <li>
+                    <img src="images/md_pick8.jpg" alt="">
+                    <h3>(펫전용)H형하네스&원형파우치세트</h3>
+                    <h5>22,000원</h5>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <ul id="md_pick_bt">
+        <li><img src="icons/btn_pause.png" alt=""></li>
+        <li><img src="icons/paging_on.png" alt=""><img src="icons/paging.png" alt=""></li>
+    </ul>
+    <!-- -->
+    <div id="what_new">
+        <h2>What's new</h2>
+        <ul>
+            <li>
+                <img src="images/new1.jpg" alt="">
+                <h3>2022 06 Bacon Scallion Cream Cheese Bagel</h2>
+            </li>
+            <li>
+                <img src="images/new2.jpg" alt="">
+                <h3>2022 06 What a Sweet Color Purple</h2>
+            </li>
+            <li>
+                <img src="images/new3.jpg" alt="">
+                <h3>2022 What a Sweet Colot Purple</h2>
+            </li>
+        </ul>
+    </div>
+    <ul id="md_pick_bt2">
+        <li><img src="icons/btn_pause.png" alt=""></li>
+        <li>
+            <img src="icons/paging_on.png" alt=""> 
+            <img src="icons/paging.png" alt=""> 
+            <img src="icons/paging.png" alt=""> 
+            <img src="icons/paging.png" alt="">
+        </li>
+    </ul>
+    <!-- sns -->
+    <div id="sns">
+        <h3>#커피빈코리아 #커피빈맛있다 #커피빈사랑해</h3>
+        <ul>
+            <li><img src="images/sns1.jpg" alt=""></li>
+            <li><img src="images/sns2.jpg" alt=""></li>
+            <li><img src="images/sns3.jpg" alt=""></li>
+            <li><img src="images/sns4.jpg" alt=""></li>
+            <li><img src="images/sns5.jpg" alt=""></li>
+            <li><img src="images/sns6.jpg" alt=""></li>
+            <li><img src="images/sns7.jpg" alt=""></li>
+            <li><img src="images/sns8.jpg" alt=""></li>
+            <li><img src="images/sns9.jpg" alt=""></li>
+            <li><img src="images/sns10.jpg" alt=""></li>
+            <li><img src="images/sns11.jpg" alt=""></li>
+            <li><img src="images/sns12.jpg" alt=""></li>
+        </ul>
+        <button> OUR INSTAGRAM - @COFFEEBEAN_KR </button>
+    </div>
+    <!-- 스크롤 Top -->
+        <img src="icons/btn_top.png" alt="" id="btn_top">
+
+    
+    <!-- -->
+    <div id="m_f_bg">
+        <div id="menu2">
+            <ul>
+                <h4>Buy Online</h4>
+                <li>VIEW ALL</li>
+                <li>커피</li>
+                <li>티</li>
+                <li>CBTL 시스템</li>
+                <li>상품</li>
+            </ul>
+            <ul>
+                <h4>Member`s Club</h4>
+                <li>커피빈 멤버스 클럽</li>
+                <li>나의 커피빈</li>
+            </ul>
+            <ul>
+                <h4>Menu</h4>
+                <li>음료</li>
+                <li>푸드</li>
+                <li>상품</li>
+                <li>카드</li>
+            </ul>
+            <ul>
+                <h4>Store & 서비스</h4>
+                <li>케이터링 서비스</li>
+                <li>매장 찾기</li>
+                <li>신규매장</li>
+            </ul>
+            <ul>
+                <h4>The Coffee Bean</h4>
+                <li>커피빈 코리아</li>
+                <li>커피빈 소식</li>
+                <li>사회공헌</li>
+                <li>제휴 마케팅 제안</li>
+                <li>채용안내</li>
+                <li>신규 입점 제의</li>
+                <li>결산공고</li>
+            </ul>
+            <ul>
+                <h4>CBTL</h4>
+                <li>CBTL 가이드</li>
+                <li>CBTL 서비스</li>
+                <li>AS 안내</li>
+                <li>AS 신청</li>
+                <li>CBTL FAQ</li>
+                <li>제품설명서</li>
+            </ul>
+        </div>
+    <footer>
+        <div id="footer_box">
+            <div id="left_box">
+                <ul id="f_left_1">
+                    <li>홈페이지 이용약관</li>
+                    <li>개인정보처리방침</li>
+                    <li>영상정보처리기기운영방침</li>
+                    <li>멤버스카드이용약관</li>
+                    <li>위치기반서비스 이용약관</li>
+                </ul>
+                <ul id="f_left_2">
+                    <li>(주)커피빈코리아 대표이사 감종철</li>
+                    <li>사업자등록번호 120-86-07029</li>
+                    <li>통신판매업신고 제 2010-서울강남-00560</li>
+                    <li>서울시 강남구 봉은사로 99길 7</li>
+                    <li>고객센터 02-1577-4708 (09:00 - 18:00)</li>
+                    <li>E-mail : cbk@coffeebeankorea.com</li>
+                    <li>ⓒ 2021. The Coffee Bean. All rights reserved.</li>
+                </ul>
+            </div>
+            <div id="right_box">
+                <ul id="f_right_icon">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</div>
+</body>
+</html>
+
